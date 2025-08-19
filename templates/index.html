@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-wallet"></i> Budget Tracker</h1>
+            <p class="subtitle">Track your income and expenses with ease</p>
+        </header>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="loading hidden">
+            <i class="fas fa-spinner fa-spin"></i> Loading...
+        </div>
+
+        <!-- Error Messages -->
+        <div id="errorMessage" class="message error hidden"></div>
+        <div id="successMessage" class="message success hidden"></div>
+
+        <!-- Balance Display -->
+        <div class="balance-section">
+            <div class="balance-card">
+                <h2>Current Balance</h2>
+                <div class="balance-amount" id="currentBalance">₹0.00</div>
+                <button class="refresh-btn" onclick="loadBalance()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-section">
+            <div class="stat-card income-stat">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Income</h3>
+                    <p id="totalIncome">₹0.00</p>
+                </div>
+            </div>
+            <div class="stat-card expense-stat">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Expenses</h3>
+                    <p id="totalExpenses">₹0.00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Forms -->
+        <div class="forms-section">
+            <!-- Add Income Form -->
+            <div class="form-card">
+                <h3><i class="fas fa-plus-circle"></i> Add Income</h3>
+                <form id="incomeForm">
+                    <div class="form-group">
+                        <label for="incomeAmount">Amount (₹)</label>
+                        <input type="number" id="incomeAmount" step="0.01" min="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="incomeDescription">Description</label>
+                        <input type="text" id="incomeDescription" placeholder="e.g., Salary, Freelance" required>
+                    </div>
+                    <button type="submit" class="btn btn-income">
+                        <i class="fas fa-plus"></i> Add Income
+                    </button>
+                </form>
+            </div>
+
+            <!-- Add Expense Form -->
+            <div class="form-card">
+                <h3><i class="fas fa-minus-circle"></i> Add Expense</h3>
+                <form id="expenseForm">
+                    <div class="form-group">
+                        <label for="expenseAmount">Amount (₹)</label>
+                        <input type="number" id="expenseAmount" step="0.01" min="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseDescription">Description</label>
+                        <input type="text" id="expenseDescription" placeholder="e.g., Groceries, Rent" required>
+                    </div>
+                    <button type="submit" class="btn btn-expense">
+                        <i class="fas fa-minus"></i> Add Expense
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Transaction History -->
+        <div class="history-section">
+            <div class="history-header">
+                <h3><i class="fas fa-history"></i> Transaction History</h3>
+                <button class="clear-btn" onclick="clearAllData()">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+            <div class="transactions-list" id="transactionsList">
+                <!-- Transactions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
